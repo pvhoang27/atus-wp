@@ -58,7 +58,8 @@ h2{color:var(--wine);font-size:clamp(30px,3.15vw,46px);font-weight:600;line-heig
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--wine)}
 h1{font-size:clamp(48px,5.05vw,76px);font-weight:600;line-height:1.18;letter-spacing:-3.9px;color:var(--wine)}
 @media(min-width:901px){
- body.single-post main#main.container>article>h1{display:block!important;width:100%!important;max-width:1060px!important;margin-left:auto!important;margin-right:auto!important;font-size:clamp(50px,3.2vw,60px)!important;line-height:1.14;letter-spacing:-3px;text-wrap:balance}
+ body.single-post main#main.container>article{width:100%;max-width:1060px;margin-inline:auto}
+ body.single-post main#main.container>article>h1{display:block!important;width:100%!important;max-width:none!important;margin-inline:0!important;font-size:clamp(50px,3.2vw,60px)!important;line-height:1.14;letter-spacing:-3px;text-wrap:balance}
 }
 .hero-description{max-width:440px;margin-top:27px;color:var(--muted);font-size:15px;line-height:1.95}
 .hero-actions{display:flex;align-items:center;gap:25px;margin-top:33px;flex-wrap:wrap}
