@@ -32,6 +32,46 @@ function atus_clothing_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'atus_clothing_assets' );
 
+/**
+ * Provide a real journal archive at /journal/ without requiring a Posts page.
+ */
+function atus_clothing_journal_rewrite() {
+    add_rewrite_rule( '^journal/page/([0-9]+)/?$', 'index.php?atus_journal=1&paged=$matches[1]', 'top' );
+    add_rewrite_rule( '^journal/?$', 'index.php?atus_journal=1', 'top' );
+}
+add_action( 'init', 'atus_clothing_journal_rewrite' );
+
+function atus_clothing_journal_query_var( $query_vars ) {
+    $query_vars[] = 'atus_journal';
+    return $query_vars;
+}
+add_filter( 'query_vars', 'atus_clothing_journal_query_var' );
+
+function atus_clothing_journal_query( $query ) {
+    if ( ! is_admin() && $query->is_main_query() && $query->get( 'atus_journal' ) ) {
+        $query->set( 'post_type', 'post' );
+        $query->set( 'post_status', 'publish' );
+        $query->set( 'ignore_sticky_posts', true );
+    }
+}
+add_action( 'pre_get_posts', 'atus_clothing_journal_query' );
+
+function atus_clothing_journal_template( $template ) {
+    if ( get_query_var( 'atus_journal' ) ) {
+        return get_theme_file_path( '/journal.php' );
+    }
+    return $template;
+}
+add_filter( 'template_include', 'atus_clothing_journal_template' );
+
+function atus_clothing_flush_journal_rewrite() {
+    if ( '1' !== get_option( 'atus_journal_rewrite_version' ) ) {
+        flush_rewrite_rules();
+        update_option( 'atus_journal_rewrite_version', '1' );
+    }
+}
+add_action( 'admin_init', 'atus_clothing_flush_journal_rewrite' );
+
 function atus_clothing_defaults() {
     return array(
         'announcement' => 'Thêu một điều riêng. Giữ một điều thương.',
