@@ -1,0 +1,10 @@
+.git/
+.github/
+.gitignore
+.deployignore
+README.txt
+*.zip
+*.log
+.DS_Store
+node_modules/
+vendor/
