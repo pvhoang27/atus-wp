@@ -388,7 +388,7 @@
     );
     if ( $atus_journal->have_posts() ) :
         $atus_posts_page_id = (int) get_option( 'page_for_posts' );
-        $atus_journal_url   = $atus_posts_page_id ? get_permalink( $atus_posts_page_id ) : home_url( '/journal/' );
+        $atus_journal_url   = $atus_posts_page_id ? get_permalink( $atus_posts_page_id ) : add_query_arg( 'atus_journal', '1', home_url( '/' ) );
     ?>
     <section class="journal-section section-space container" id="journal" aria-labelledby="journalTitle">
       <div class="journal-heading"><div><span class="section-label">Góc nhỏ của ATUS</span><h2 id="journalTitle"><?php echo wp_kses_post( atus_clothing_option( 'journal_title' ) ); ?></h2></div><div class="journal-intro"><p><?php echo wp_kses_post( atus_clothing_option( 'journal_text' ) ); ?></p><a class="text-link journal-all-link" href="<?php echo esc_url( $atus_journal_url ); ?>">Xem tất cả bài viết <span aria-hidden="true">→</span></a></div></div>
