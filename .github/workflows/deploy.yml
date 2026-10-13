@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -57,7 +57,7 @@ jobs:
       HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Validate deployment configuration
         shell: bash
@@ -88,10 +88,22 @@ jobs:
         run: |
           set -euo pipefail
           port="${DEPLOY_PORT:-22}"
-          rsync -az --checksum \
-            --exclude-from=.deployignore \
-            -e "ssh -i ~/.ssh/deploy_key -p ${port} -o BatchMode=yes -o StrictHostKeyChecking=yes" \
-            ./ "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH%/}/"
+          tar \
+            --exclude-vcs \
+            --exclude='.github' \
+            --exclude='.deployignore' \
+            --exclude='README.txt' \
+            --exclude='*.zip' \
+            --exclude='*.log' \
+            --exclude='node_modules' \
+            --exclude='vendor' \
+            -czf - . | ssh \
+              -i ~/.ssh/deploy_key \
+              -p "$port" \
+              -o BatchMode=yes \
+              -o StrictHostKeyChecking=yes \
+              "${DEPLOY_USER}@${DEPLOY_HOST}" \
+              "mkdir -p '${DEPLOY_PATH%/}' && tar -xzf - -C '${DEPLOY_PATH%/}'"
 
       - name: Verify website
         if: ${{ env.HEALTHCHECK_URL != '' }}
