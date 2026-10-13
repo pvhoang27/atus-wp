@@ -23,11 +23,11 @@ function atus_clothing_setup() {
 add_action( 'after_setup_theme', 'atus_clothing_setup' );
 
 function atus_clothing_assets() {
-    $version = wp_get_theme()->get( 'Version' );
-    wp_enqueue_style( 'atus-main', get_template_directory_uri() . '/styles.css', array(), $version );
-    wp_enqueue_style( 'atus-services', get_template_directory_uri() . '/services.css', array( 'atus-main' ), $version );
-    wp_enqueue_script( 'atus-main', get_template_directory_uri() . '/script.js', array(), $version, true );
-    wp_enqueue_script( 'atus-services', get_template_directory_uri() . '/services.js', array(), $version, true );
+    $theme_dir = get_template_directory();
+    wp_enqueue_style( 'atus-main', get_template_directory_uri() . '/styles.css', array(), filemtime( $theme_dir . '/styles.css' ) );
+    wp_enqueue_style( 'atus-services', get_template_directory_uri() . '/services.css', array( 'atus-main' ), filemtime( $theme_dir . '/services.css' ) );
+    wp_enqueue_script( 'atus-main', get_template_directory_uri() . '/script.js', array(), filemtime( $theme_dir . '/script.js' ), true );
+    wp_enqueue_script( 'atus-services', get_template_directory_uri() . '/services.js', array(), filemtime( $theme_dir . '/services.js' ), true );
     wp_localize_script( 'atus-services', 'ATUS_THEME', array( 'url' => get_template_directory_uri() ) );
 }
 add_action( 'wp_enqueue_scripts', 'atus_clothing_assets' );
