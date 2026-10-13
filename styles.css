@@ -57,6 +57,9 @@ h2{color:var(--wine);font-size:clamp(30px,3.15vw,46px);font-weight:600;line-heig
 .hero-location{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--wine);margin-bottom:28px}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--wine)}
 h1{font-size:clamp(48px,5.05vw,76px);font-weight:600;line-height:1.18;letter-spacing:-3.9px;color:var(--wine)}
+@media(min-width:1151px){
+ body.single-post main>article>h1{max-width:1180px;font-size:clamp(58px,3.6vw,68px);line-height:1.14;letter-spacing:-3.2px;text-wrap:balance}
+}
 .hero-description{max-width:440px;margin-top:27px;color:var(--muted);font-size:15px;line-height:1.95}
 .hero-actions{display:flex;align-items:center;gap:25px;margin-top:33px;flex-wrap:wrap}
 .hero-actions .text-link{font-size:13px}
@@ -591,7 +594,9 @@ h1{font-size:clamp(48px,5.05vw,76px);font-weight:600;line-height:1.18;letter-spa
 .journal-section{background:var(--paper)}
 .journal-heading{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:12%;margin-bottom:38px}
 .journal-heading h2{font-size:clamp(36px,4vw,58px);line-height:1.15;letter-spacing:-2px}
-.journal-heading>p{max-width:480px;color:var(--muted);font-size:14px;line-height:1.9}
+.journal-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:28px}
+.journal-intro p{max-width:380px;color:var(--muted);font-size:14px;line-height:1.9}
+.journal-all-link{flex-shrink:0;font-size:12px}
 .journal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .journal-card{min-width:0;border-top:1px solid var(--line);padding-top:14px}
 .journal-image{display:block;overflow:hidden;background:#e7e2d7;aspect-ratio:4/3}
@@ -606,6 +611,7 @@ h1{font-size:clamp(48px,5.05vw,76px);font-weight:600;line-height:1.18;letter-spa
 @media(max-width:760px){
  .journal-heading{grid-template-columns:1fr;gap:16px;margin-bottom:25px}
  .journal-heading h2{font-size:36px;letter-spacing:-1.5px}
+ .journal-intro{align-items:flex-start}
  .journal-grid{grid-template-columns:1fr;gap:34px}
  .journal-card{display:grid;grid-template-columns:.9fr 1.1fr;gap:17px}
  .journal-copy{padding-top:4px}
@@ -613,6 +619,8 @@ h1{font-size:clamp(48px,5.05vw,76px);font-weight:600;line-height:1.18;letter-spa
  .journal-copy p{display:none}
 }
 @media(max-width:430px){
+ .journal-intro{display:block}
+ .journal-all-link{margin-top:12px}
  .journal-card{grid-template-columns:1fr}
  .journal-copy p{display:block}
 }
