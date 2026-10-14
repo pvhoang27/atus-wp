@@ -1,90 +1,13 @@
-<!doctype html>
-<html <?php language_attributes(); ?>>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ATUS Clothing nhận tư vấn, thiết kế mẫu và thêu áo polo, đồng phục, áo đôi theo yêu cầu tại Hà Nội. Áo thêu có sẵn 280.000đ. Zalo 0877598887.">
-  <meta name="theme-color" content="#181813">
-  <link rel="canonical" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="vi_VN">
-  <meta property="og:site_name" content="ATUS Clothing">
-  <meta property="og:title" content="ATUS Clothing — Những sợi chỉ gắn kết">
-  <meta property="og:description" content="Thêu vi tính theo yêu cầu tại Hà Nội. Chọn một mẫu áo bạn thích, hoặc cùng ATUS thêu nên câu chuyện của riêng bạn.">
-  <meta property="og:url" content="https://atusclothing.com/">
-  <meta property="og:image" content="https://atusclothing.com/assets/products/03-spider-gwen.jpg">
-  <meta property="og:image:width" content="1024">
-  <meta property="og:image:height" content="1024">
-  <meta property="og:image:alt" content="Áo thêu Spider-Gwen từ bộ sưu tập ATUS Clothing">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ATUS Clothing — Những sợi chỉ gắn kết">
-  <meta name="twitter:description" content="Thêu vi tính và áo thêu theo yêu cầu tại Hà Nội.">
-  <meta name="twitter:image" content="https://atusclothing.com/assets/products/03-spider-gwen.jpg">
-  <link rel="icon" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/fonts/be-vietnam-pro-400.ttf" as="font" type="font/ttf" crossorigin>
-  <?php wp_head(); ?>
-  <script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://atusclothing.com/#website",
-      "url": "https://atusclothing.com/",
-      "name": "ATUS Clothing",
-      "inLanguage": "vi-VN",
-      "publisher": {
-        "@id": "https://atusclothing.com/#store"
-      }
-    },
-    {
-      "@type": "ClothingStore",
-      "@id": "https://atusclothing.com/#store",
-      "name": "ATUS Clothing",
-      "legalName": "HỘ KINH DOANH ATUS CLOTHING",
-      "identifier": {"@type": "PropertyValue", "propertyID": "Mã số hộ kinh doanh", "value": "001201012835"},
-      "url": "https://atusclothing.com/",
-      "image": "https://atusclothing.com/assets/products/03-spider-gwen.jpg",
-      "telephone": "+84877598887",
-      "description": "Thêu vi tính, thêu áo theo yêu cầu và áo thêu có sẵn tại Hà Nội.",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Số 4 ngõ Tạm Thương, phường Hoàn Kiếm",
-        "addressLocality": "Hà Nội",
-        "addressCountry": "VN"
-      },
-      "sameAs": [
-        "https://shopee.vn/atus.clothing"
-      ]
-    },
-    {
-      "@type": "Service",
-      "name": "Thêu vi tính theo yêu cầu",
-      "serviceType": "Tư vấn, thiết kế mẫu thêu và thêu áo theo yêu cầu",
-      "description": "Nhận tư vấn thiết kế mẫu thêu trên áo polo, áo đồng phục và áo đôi; lựa chọn vị trí, màu chỉ, kích thước và báo giá theo yêu cầu.",
-      "provider": {
-        "@id": "https://atusclothing.com/#store"
-      },
-      "areaServed": {
-        "@type": "City",
-        "name": "Hà Nội"
-      },
-      "url": "https://atusclothing.com/#custom"
-    }
-  ]
-}</script>
-</head>
-<body <?php body_class(); ?>>
-  <?php wp_body_open(); ?>
-  <?php $atus_zalo = esc_url( atus_clothing_option( 'zalo_url' ) ); ?>
-  <a class="skip-link" href="#main">Đi đến nội dung</a>
-  <div class="announcement"><span><?php echo wp_kses_post( atus_clothing_option( 'announcement' ) ); ?></span><a href="<?php echo $atus_zalo; ?>" target="_blank" rel="noopener noreferrer">Cùng ATUS lên ý tưởng <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
-  <header class="site-header">
-    <div class="header-inner container">
-      <a class="wordmark" href="#top" aria-label="ATUS Clothing — Trang chủ"><span class="wordmark-main">atus</span><span class="wordmark-sub">clothing</span></a>
-      <?php if ( has_nav_menu( 'primary' ) ) : ?><?php wp_nav_menu( array( 'theme_location' => 'primary', 'container' => 'nav', 'container_class' => 'main-nav', 'container_id' => 'mainNav', 'menu_class' => 'atus-menu', 'depth' => 1 ) ); ?><?php else : ?><nav class="main-nav" id="mainNav" aria-label="Điều hướng chính"><a href="#shop">Áo có sẵn</a><a href="#custom">Thêu theo yêu cầu</a><a href="#services">Polo & đồng phục</a><a href="#journal">Bài viết</a><a href="#faq">Hỏi & đáp</a></nav><?php endif; ?>
-      <div class="header-actions"><a class="button button-small" href="<?php echo $atus_zalo; ?>" target="_blank" rel="noopener noreferrer">Gửi ý tưởng <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Mở menu" hidden><span></span><span></span></button></div>
-    </div>
-  </header>
+<?php
+/**
+ * Front page template.
+ *
+ * @package ATUS_Clothing
+ */
+
+get_header();
+$atus_zalo = esc_url( atus_clothing_option( 'zalo_url' ) );
+?>
 
   <main id="main">
     <section class="hero container" id="top" aria-labelledby="heroTitle">
@@ -114,20 +37,22 @@
       </div>
     </section>
 
+    <?php
+    $atus_products = function_exists( 'wc_get_products' ) ? wc_get_products(
+        array(
+            'status'  => 'publish',
+            'limit'   => 18,
+            'orderby' => 'menu_order',
+            'order'   => 'ASC',
+        )
+    ) : array();
+    ?>
     <section class="collection-section section-space" id="shop" aria-labelledby="shopTitle">
       <div class="container">
-        <div class="section-heading"><div><span class="section-label">Chọn từ bộ sưu tập</span><h2 id="shopTitle"><?php echo wp_kses_post( atus_clothing_option( 'collection_title' ) ); ?></h2></div><div class="collection-note"><span class="price-label">Đồng giá <b>280.000đ</b></span><p>Áp dụng cho các mẫu có sẵn bên dưới.</p></div></div>
-        <div class="catalog-toolbar"><div class="catalog-filters" role="group" aria-label="Lọc mẫu áo" hidden><button type="button" class="filter-button is-active" data-filter="all" aria-pressed="true">Tất cả</button><button type="button" class="filter-button" data-filter="character" aria-pressed="false">Nhân vật yêu thích</button><button type="button" class="filter-button" data-filter="couple" aria-pressed="false">Dành cho hai người</button><button type="button" class="filter-button" data-filter="symbols" aria-pressed="false">Chữ & biểu tượng</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite">18 mẫu từ ATUS</p></div>
+        <div class="section-heading"><div><span class="section-label">Chọn từ bộ sưu tập</span><h2 id="shopTitle"><?php echo wp_kses_post( atus_clothing_option( 'collection_title' ) ); ?></h2></div><div class="collection-note"><span class="price-label"><?php echo wp_kses_post( atus_clothing_option( 'collection_price_label' ) ); ?></span><p><?php echo wp_kses_post( atus_clothing_option( 'collection_note' ) ); ?></p></div></div>
+        <div class="catalog-toolbar"><div class="catalog-filters" role="group" aria-label="Lọc mẫu áo" hidden><button type="button" class="filter-button is-active" data-filter="all" aria-pressed="true">Tất cả</button><button type="button" class="filter-button" data-filter="character" aria-pressed="false">Nhân vật yêu thích</button><button type="button" class="filter-button" data-filter="couple" aria-pressed="false">Dành cho hai người</button><button type="button" class="filter-button" data-filter="symbols" aria-pressed="false">Chữ & biểu tượng</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite"><?php echo esc_html( count( $atus_products ) ); ?> mẫu từ ATUS</p></div>
         <div class="product-grid" id="productGrid">
         <?php
-        $atus_products = function_exists( 'wc_get_products' ) ? wc_get_products(
-            array(
-                'status'  => 'publish',
-                'limit'   => 18,
-                'orderby' => 'menu_order',
-                'order'   => 'ASC',
-            )
-        ) : array();
         if ( $atus_products ) :
             foreach ( $atus_products as $atus_index => $atus_product ) :
                 $atus_terms      = wp_get_post_terms( $atus_product->get_id(), 'product_cat', array( 'fields' => 'slugs' ) );
@@ -147,6 +72,14 @@
             endforeach;
         else :
         ?>
+          <div class="catalog-empty">
+            <h3>Bộ sưu tập đang được cập nhật.</h3>
+            <p>Sản phẩm sẽ xuất hiện tự động tại đây sau khi được đăng trong mục Sản phẩm của WordPress.</p>
+            <?php if ( current_user_can( 'edit_products' ) ) : ?><a class="button button-outline" href="<?php echo esc_url( admin_url( 'edit.php?post_type=product' ) ); ?>">Quản lý sản phẩm</a><?php endif; ?>
+          </div>
+        <?php endif; ?>
+        <?php // Legacy static catalog intentionally disabled; products are managed in WooCommerce. ?>
+        <?php if ( false ) : ?>
         <article class="product-card" data-category="character" data-name="Spider-Gwen">
           <div class="product-photo">
             <a class="product-image-link" href="https://shopee.vn/product/1912950911/55718158157" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><img class="product-image" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/products/web/03-spider-gwen.webp" srcset="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/products/web/03-spider-gwen-480.webp 480w, <?php echo esc_url( get_template_directory_uri() ); ?>/assets/products/web/03-spider-gwen.webp 960w" sizes="(max-width: 600px) 50vw, (max-width: 1000px) 40vw, 24vw" width="960" height="960" alt="Áo thêu nhân vật Spider-Gwen của ATUS Clothing" loading="lazy" decoding="async"></a>
@@ -293,8 +226,8 @@
         </article>
         <?php endif; ?>
         </div>
-        <div class="catalog-footer"><button class="button button-outline" id="catalogToggle" type="button" aria-expanded="false" aria-controls="productGrid" hidden>Xem thêm 10 mẫu <span aria-hidden="true">+</span></button><?php if ( $atus_products ) : ?><a class="text-link shopee-link" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">Xem tất cả sản phẩm <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><?php else : ?><a class="text-link shopee-link" href="https://shopee.vn/atus.clothing#product_list" target="_blank" rel="noopener noreferrer">Ghé gian hàng Shopee <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><?php endif; ?></div>
-        <p class="catalog-help"><?php echo $atus_products ? 'Chọn màu và kích cỡ tại trang chi tiết sản phẩm.' : 'Chọn màu và kích cỡ tại trang sản phẩm trên Shopee.'; ?> Cần tư vấn? <a href="<?php echo $atus_zalo; ?>" target="_blank" rel="noopener noreferrer">Nhắn ATUS qua Zalo.</a></p>
+        <?php if ( $atus_products ) : ?><div class="catalog-footer"><button class="button button-outline" id="catalogToggle" type="button" aria-expanded="false" aria-controls="productGrid" hidden>Xem thêm sản phẩm <span aria-hidden="true">+</span></button><a class="text-link shopee-link" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">Xem tất cả sản phẩm <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div><?php endif; ?>
+        <p class="catalog-help"><?php echo $atus_products ? 'Chọn màu và kích cỡ tại trang chi tiết sản phẩm.' : 'ATUS đang chuẩn bị sản phẩm để đăng lên website.'; ?> Cần tư vấn? <a href="<?php echo $atus_zalo; ?>" target="_blank" rel="noopener noreferrer">Nhắn ATUS qua Zalo.</a></p>
       </div>
     </section>
 
@@ -425,13 +358,8 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-main"><div class="footer-brand"><a class="wordmark" href="#top" aria-label="ATUS Clothing — về đầu trang"><span class="wordmark-main">atus</span><span class="wordmark-sub">clothing</span></a><p><?php echo wp_kses_post( atus_clothing_option( 'footer_tagline' ) ); ?></p></div><div class="footer-address"><h2>Ghé ATUS tại Hà Nội</h2><address><?php echo wp_kses_post( atus_clothing_option( 'address' ) ); ?></address><a href="<?php echo esc_url( atus_clothing_option( 'map_url' ) ); ?>" target="_blank" rel="noopener noreferrer">Xem đường đi ↗</a></div><div class="footer-links"><h2>Kết nối với ATUS</h2><a href="<?php echo esc_url( atus_clothing_option( 'shopee_url' ) ); ?>" target="_blank" rel="noopener noreferrer">Gian hàng Shopee</a><a href="<?php echo $atus_zalo; ?>" target="_blank" rel="noopener noreferrer">Zalo <?php echo esc_html( atus_clothing_option( 'phone_display' ) ); ?></a><a href="#custom">Thêu theo yêu cầu</a></div></div><div class="container footer-business"><p><?php echo esc_html( atus_clothing_option( 'business_name' ) ); ?></p><p>Mã số hộ kinh doanh: <span><?php echo esc_html( atus_clothing_option( 'business_id' ) ); ?></span></p><p>Trụ sở: <?php echo esc_html( atus_clothing_option( 'business_address' ) ); ?></p></div><div class="container footer-bottom"><p>© <?php echo esc_html( wp_date( 'Y' ) ); ?> ATUS Clothing</p><a href="#top">Lên đầu trang ↑</a></div></footer>
-
-  <a class="zalo-float" href="<?php echo $atus_zalo; ?>" target="_blank" rel="noopener noreferrer" aria-label="Chat với ATUS qua Zalo"><span class="zalo-symbol">Zalo</span><span class="zalo-text">Nhắn ATUS<small><?php echo esc_html( atus_clothing_option( 'phone_display' ) ); ?></small></span></a>
   <dialog class="product-dialog" id="productDialog" aria-labelledby="dialogTitle">
     <form method="dialog"><button class="dialog-close" aria-label="Đóng xem nhanh" autofocus>×</button></form>
     <div class="dialog-layout"><img id="dialogImage" width="960" height="960" alt=""><div class="dialog-copy"><span class="section-label">Từ bộ sưu tập ATUS</span><h2 id="dialogTitle"></h2><p id="dialogType"></p><p class="dialog-price">280.000đ</p><p>Xem lựa chọn màu, kích cỡ và thông tin chi tiết trên trang sản phẩm.</p><a id="dialogShopLink" class="button"<?php echo $atus_products ? '' : ' target="_blank" rel="noopener noreferrer"'; ?>>Xem sản phẩm <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 7h14l1 14H4L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg></a><a class="text-link" href="<?php echo $atus_zalo; ?>" target="_blank" rel="noopener noreferrer">Tư vấn mẫu qua Zalo <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div>
   </dialog>
-  <?php wp_footer(); ?>
-</body>
-</html>
+<?php get_footer(); ?>

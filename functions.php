@@ -13,6 +13,10 @@ function atus_clothing_setup() {
     load_theme_textdomain( 'atus-clothing', get_template_directory() . '/languages' );
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'custom-logo', array( 'height' => 120, 'width' => 360, 'flex-height' => true, 'flex-width' => true ) );
+    add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
+    add_theme_support( 'responsive-embeds' );
+    add_theme_support( 'align-wide' );
     add_theme_support( 'woocommerce' );
     add_theme_support( 'wc-product-gallery-zoom' );
     add_theme_support( 'wc-product-gallery-lightbox' );
@@ -31,6 +35,84 @@ function atus_clothing_assets() {
     wp_localize_script( 'atus-services', 'ATUS_THEME', array( 'url' => get_template_directory_uri() ) );
 }
 add_action( 'wp_enqueue_scripts', 'atus_clothing_assets' );
+
+function atus_clothing_cart_fragment( $fragments ) {
+    if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+        return $fragments;
+    }
+    $fragments['.header-cart-count'] = '<span class="header-cart-count">' . esc_html( WC()->cart->get_cart_contents_count() ) . '</span>';
+    return $fragments;
+}
+add_filter( 'woocommerce_add_to_cart_fragments', 'atus_clothing_cart_fragment' );
+
+/**
+ * Front-page metadata uses WordPress URLs and admin-managed theme settings.
+ * SEO plugins can take over by defining their usual public constants.
+ */
+function atus_clothing_front_page_meta() {
+    if ( ! is_front_page() || defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
+        return;
+    }
+
+    $site_name   = get_bloginfo( 'name' ) ?: 'ATUS Clothing';
+    $description = get_bloginfo( 'description' ) ?: wp_strip_all_tags( atus_clothing_option( 'hero_description' ) );
+    $url         = home_url( '/' );
+    $image       = atus_clothing_option( 'hero_image_1' );
+    ?>
+    <meta name="description" content="<?php echo esc_attr( $description ); ?>">
+    <link rel="canonical" href="<?php echo esc_url( $url ); ?>">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>">
+    <meta property="og:title" content="<?php echo esc_attr( wp_get_document_title() ); ?>">
+    <meta property="og:description" content="<?php echo esc_attr( $description ); ?>">
+    <meta property="og:url" content="<?php echo esc_url( $url ); ?>">
+    <meta property="og:image" content="<?php echo esc_url( $image ); ?>">
+    <meta name="twitter:card" content="summary_large_image">
+    <?php
+}
+add_action( 'wp_head', 'atus_clothing_front_page_meta', 2 );
+
+function atus_clothing_schema() {
+    if ( ! is_front_page() || defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
+        return;
+    }
+
+    $url      = home_url( '/' );
+    $store_id = trailingslashit( $url ) . '#store';
+    $schema   = array(
+        '@context' => 'https://schema.org',
+        '@graph'   => array(
+            array(
+                '@type'      => 'WebSite',
+                '@id'        => trailingslashit( $url ) . '#website',
+                'url'        => $url,
+                'name'       => get_bloginfo( 'name' ),
+                'inLanguage' => get_bloginfo( 'language' ),
+                'publisher'  => array( '@id' => $store_id ),
+            ),
+            array(
+                '@type'       => 'ClothingStore',
+                '@id'         => $store_id,
+                'name'        => get_bloginfo( 'name' ),
+                'legalName'   => wp_strip_all_tags( atus_clothing_option( 'business_name' ) ),
+                'url'         => $url,
+                'image'       => atus_clothing_option( 'hero_image_1' ),
+                'telephone'   => preg_replace( '/[^0-9+]/', '', atus_clothing_option( 'phone' ) ),
+                'description' => wp_strip_all_tags( atus_clothing_option( 'hero_description' ) ),
+                'address'     => array(
+                    '@type'           => 'PostalAddress',
+                    'streetAddress'    => wp_strip_all_tags( atus_clothing_option( 'address' ) ),
+                    'addressLocality'  => 'Hà Nội',
+                    'addressCountry'   => 'VN',
+                ),
+                'sameAs'      => array( atus_clothing_option( 'shopee_url' ) ),
+            ),
+        ),
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
+}
+add_action( 'wp_head', 'atus_clothing_schema', 30 );
 
 /**
  * Provide a real journal archive at /journal/ without requiring a Posts page.
@@ -82,6 +164,8 @@ function atus_clothing_defaults() {
         'story_title' => 'Có những điều,<br>mình muốn mặc lên.',
         'story_text' => 'Một nhân vật mê từ bé. Một kỷ niệm của hai người. Hay cái tên thân thuộc. ATUS dùng thêu vi tính để đưa những điều ấy lên áo, qua từng nét chỉ có hình, có sắc, có câu chuyện.',
         'collection_title' => 'Một chiếc áo. Một điều rất bạn.',
+        'collection_price_label' => 'Đồng giá <b>280.000đ</b>',
+        'collection_note' => 'Áp dụng cho các mẫu có sẵn bên dưới.',
         'custom_title' => 'Bạn nghĩ ra.<br>ATUS thêu lại.',
         'custom_text' => 'Gửi một nét vẽ, tên riêng hay hình ảnh có ý nghĩa. Mình cùng trao đổi vị trí, kích thước và màu chỉ để tìm cách thể hiện đẹp trên chiếc áo của bạn.',
         'services_title' => 'Bạn muốn thêu<br>trên áo nào?',
@@ -154,6 +238,7 @@ function atus_clothing_customizer( $customizer ) {
         'hero_title' => array( 'Tiêu đề chính', 'atus_home' ), 'hero_description' => array( 'Mô tả đầu trang', 'atus_home' ),
         'hero_note' => array( 'Ghi chú đầu trang', 'atus_home' ), 'story_title' => array( 'Tiêu đề giới thiệu', 'atus_home' ),
         'story_text' => array( 'Nội dung giới thiệu', 'atus_home' ), 'collection_title' => array( 'Tiêu đề bộ sưu tập', 'atus_home' ),
+        'collection_price_label' => array( 'Nhãn giá bộ sưu tập', 'atus_home' ), 'collection_note' => array( 'Ghi chú giá bộ sưu tập', 'atus_home' ),
         'custom_title' => array( 'Tiêu đề thêu theo yêu cầu', 'atus_services' ), 'custom_text' => array( 'Mô tả thêu theo yêu cầu', 'atus_services' ),
         'services_title' => array( 'Tiêu đề dịch vụ', 'atus_services' ), 'services_text' => array( 'Giới thiệu dịch vụ', 'atus_services' ),
         'polo_title' => array( 'Tiêu đề áo polo', 'atus_services' ), 'polo_text' => array( 'Mô tả áo polo', 'atus_services' ),
@@ -192,6 +277,29 @@ function atus_clothing_admin_menu() {
     add_theme_page( 'Cài đặt ATUS', 'Cài đặt ATUS', 'manage_options', 'atus-setup', 'atus_clothing_setup_page' );
 }
 add_action( 'admin_menu', 'atus_clothing_admin_menu' );
+
+function atus_clothing_dashboard_widget() {
+    wp_add_dashboard_widget( 'atus_clothing_dashboard', 'Quản lý website ATUS', 'atus_clothing_dashboard_widget_content' );
+}
+add_action( 'wp_dashboard_setup', 'atus_clothing_dashboard_widget' );
+
+function atus_clothing_dashboard_widget_content() {
+    $links = array(
+        array( 'Sửa nội dung & hình ảnh trang chủ', admin_url( 'customize.php' ) ),
+        array( 'Quản lý sản phẩm', admin_url( 'edit.php?post_type=product' ) ),
+        array( 'Thêm sản phẩm mới', admin_url( 'post-new.php?post_type=product' ) ),
+        array( 'Viết bài mới', admin_url( 'post-new.php' ) ),
+        array( 'Sửa menu', admin_url( 'nav-menus.php' ) ),
+    );
+    if ( class_exists( 'WooCommerce' ) ) {
+        $links[] = array( 'Xem đơn hàng', admin_url( 'admin.php?page=wc-orders' ) );
+    }
+    echo '<p>Mọi nội dung thường dùng có thể quản lý ngay trong WordPress, không cần sửa mã nguồn.</p><ul>';
+    foreach ( $links as $link ) {
+        echo '<li><a href="' . esc_url( $link[1] ) . '">' . esc_html( $link[0] ) . ' →</a></li>';
+    }
+    echo '</ul>';
+}
 
 function atus_clothing_setup_page() {
     if ( ! current_user_can( 'manage_options' ) ) {
